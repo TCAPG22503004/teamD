@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class zombiMovement : MonoBehaviour
+public class bulletMovement : MonoBehaviour
 {
 	[SerializeField] float speed;
 	Ray ray;
@@ -8,10 +8,8 @@ public class zombiMovement : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		// get ray with screen-z direction
-		Vector3 origin = this.transform.position;
-		Vector3 direction = Camera.main.gameObject.transform.position - origin;
-		ray = new Ray(origin, direction);
+		GameObject go = GameObject.Find("Gun");
+		ray = go.GetComponent<shoot>().GetRay();
 	}
 
 	// Update is called once per frame
@@ -19,6 +17,6 @@ public class zombiMovement : MonoBehaviour
 	{
 		// movement
 		this.transform.Translate(ray.direction * speed * Time.deltaTime);
-		if (this.transform.position.z < -10f) Destroy(this.gameObject);
+		if (this.transform.position.z > 100f) Destroy(this.gameObject);
 	}
 }
