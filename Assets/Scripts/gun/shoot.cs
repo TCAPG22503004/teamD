@@ -49,15 +49,18 @@ public class Shoot : MonoBehaviour
 		if (isChain) {
 
 			RaycastHit2D hit = reticle.GetTargetInfo();
-			
-			// enemy
-			if (hit.collider.tag == ("enemy")) {
-				hit.collider.gameObject.GetComponent<zombi>().Damage(gunInfo.attack);
-			}
 
-			// treasure
-			else if (hit.collider.tag == ("treasure")) {
-				hit.collider.gameObject.GetComponent<treasure>().Hit();
+			if (hit.collider != null) {
+			
+				// enemy
+				if (hit.collider.tag == ("enemy")) {
+					hit.collider.gameObject.GetComponent<Zombi>().Damage(gunInfo.attack);
+				}
+	
+				// treasure
+				else if (hit.collider.tag == ("treasure")) {
+					hit.collider.gameObject.GetComponent<treasure>().Hit();
+				}
 			}
 		}
 
@@ -146,7 +149,14 @@ public class Shoot : MonoBehaviour
 	public void ChangeGun() {
 		gunInfo = gunInfoClass.ChangeGun(nBullet);
 		nBullet = gunInfo.NBullet;
-		ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+
+		// set ui
+		if (isSkill2) {
+			ui.SetCapacity(gunInfo.name, -1, -1);
+		}
+		else {
+			ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+		}
 		return;
 	}
 
@@ -156,20 +166,23 @@ public class Shoot : MonoBehaviour
 	}
 
 
-	public void StartSkill() {
+	public void StartSkill2(int t) {
 
 		isSkill2 = true;
 
-		ui.SetCapacity(gunInfo.name, 999, 999);
+		ui.SetCapacity(gunInfo.name, -1, -1);
+
+		Invoke("EndSkill2", t);
 
 		return;
 	}
 
-	public void EndSkill() {
+	public void EndSkill2() {
 
 		isSkill2 = false;
 
 		nBullet = gunInfo.capacity;
+
 		ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
 
 		return;

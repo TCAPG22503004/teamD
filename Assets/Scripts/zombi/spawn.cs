@@ -3,9 +3,10 @@ using UnityEngine;
 public class spawn : MonoBehaviour
 {
 	[SerializeField] GameObject zombi;
-	int xrange = 9;
+	int xrange = 8;
 	int limit = 3;
 	int nZombi = 0;
+
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()

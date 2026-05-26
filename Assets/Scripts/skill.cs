@@ -1,18 +1,36 @@
 using UnityEngine;
 
-public class skill : MonoBehaviour
+public class Skill : MonoBehaviour
 {
-	int duration;
-	bool canUseSkill;
+	int nSkillMax = 5;
+	int nSkill;
+	int duration = 15;
+	int cooldown = 10;
+	
+	int skill;
+	bool usingSkill = false;
 
 	playerParameter parameter;
 	Shoot shoot;
+	Talk talk;
+	UIChanger ui;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		parameter = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		shoot = GameObject.Find("Gun").GetComponent<Shoot>();
+		talk = GameObject.Find("Key").GetComponent<Talk>();
+		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
+
+		nSkill = nSkillMax;
+		Invoke("Init", 0.1f);
+	}
+
+	// set ui after loading
+	void Init() {
+		ui.SetSkill(nSkill, nSkillMax);
+		return;
 	}
 
 	// Update is called once per frame
@@ -26,45 +44,61 @@ public class skill : MonoBehaviour
 	void UseSkill() {
 
 		// set boolean
-		if (canUseSkill == false) return;
-		canUseSkill = false;
+		if (usingSkill) return;
+		usingSkill = true;
 
-		int level = parameter.GetLevel();
-
+		// set num
+		if (nSkill <= 0) return;
+		nSkill--;
 
 		// use skill
-		switch (level) {
-			case 1:
-				return;
-
+		skill = parameter.GetLevel();
+		switch (skill) {
 			case 2:
-				shoot.StartSkill();
-				Invoke("EndSkill2", 1f);
-				return;
+				shoot.StartSkill2(duration);
+				break;
 
 			case 3:
-				return;
+				talk.StartSkill3(duration);
+				break;
 
 			case 4:
-				return;
+				break;
 
 			case 5:
-				return;
+				break;
+
+			default:
+				usingSkill = false;
+				nSkill++;
+				break;
 		}
+		
+		ui.SetSkill(-skill, -skill);
+
+		// set end function
+		Invoke("EndSkill", duration);
 
 		return;
 	}
+
+	void EndSkill() {
+
+		skill = 0;
+
+		ui.SetSkill(-1, -1);
+
+		Invoke("EndSkillCooldown", cooldown);
+
+		return;
+	}
+
 
 	void EndSkillCooldown() {
 
-		canUseSkill = true;
+		usingSkill = false;
 
-		return;
-	}
-
-	void EndSkill2() {
-
-		shoot.EndSkill();
+		ui.SetSkill(nSkill, nSkillMax);
 
 		return;
 	}

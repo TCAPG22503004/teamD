@@ -4,7 +4,7 @@ using TMPro;
 public class UIChanger : MonoBehaviour
 {
 	// this
-	TextMeshProUGUI level, chain, capacity, bomb, talk;
+	TextMeshProUGUI level, chain, capacity, bomb, talk, skill;
 	GameObject reload, hp;
 
 	// other object
@@ -19,6 +19,7 @@ public class UIChanger : MonoBehaviour
 		capacity = GameObject.Find("Capacity").GetComponent<TextMeshProUGUI>();
 		bomb = GameObject.Find("Bomb").GetComponent<TextMeshProUGUI>();
 		talk = GameObject.Find("Talk").GetComponent<TextMeshProUGUI>();
+		skill = GameObject.Find("Space").GetComponent<TextMeshProUGUI>();
 
 		reload = GameObject.Find("Reload");
 		SetReload(false);
@@ -47,7 +48,16 @@ public class UIChanger : MonoBehaviour
 	}
 
 	public void SetCapacity(string name, int i, int j) {
-		capacity.text = name + " " + i.ToString() + " / " + j.ToString();
+
+		// use skill 2
+		if (i < 0) {
+			capacity.text = name + " " + "infinity";
+		}
+
+		else {
+			capacity.text = name + " " + i.ToString() + " / " + j.ToString();
+		}
+
 		return;
 	}
 
@@ -58,6 +68,38 @@ public class UIChanger : MonoBehaviour
 
 	public void SetTalk(string c) {
 		talk.text = c;
+		return;
+	}
+
+	public void SetSkill(int i, int j) {
+
+		// skill status
+		switch (i) {
+			case -1:
+				skill.text = "Skill CoolDown";
+				break;
+
+			case -2:
+				skill.text = "Skill 2 (Infinite bullets)";
+				break;
+
+			case -3:
+				skill.text = "Skill 3 (Same Key)";
+				break;
+
+			case -4:
+				skill.text = "Skill 4 (Slow Zombi)";
+				break;
+
+			case -5:
+				skill.text = "Skill 5 (Stop Zombi)";
+				break;
+
+			default:
+				skill.text = "Skill " + i.ToString() + " / " + j.ToString();
+				break;
+		}
+
 		return;
 	}
 

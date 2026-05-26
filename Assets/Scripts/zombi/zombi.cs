@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class zombi : MonoBehaviour
+public class Zombi : MonoBehaviour
 {
 	// zombi parameter
 	[SerializeField] int hp;
@@ -11,7 +11,8 @@ public class zombi : MonoBehaviour
 	[SerializeField] GameObject treasure;
 	float ratioTreasure = 0.1f;
 
-	// other class
+	// other variant
+	SpriteRenderer sprite;
 	spawn spawner;
 	playerParameter parameter;
 	UIChanger ui;
@@ -19,15 +20,31 @@ public class zombi : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
+		sprite =  this.transform.GetChild(0).GetComponent<SpriteRenderer>();
 		spawner = GameObject.Find("Spawner").GetComponent<spawn>();
 		parameter = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
+
+		SetIndex();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		Movement();
+	}
+
+
+	/* ---------------
+		sort
+	------------------ */
+	void SetIndex() {
+
+		// up from spawner
+		int index = GameObject.Find("Spawner").transform.GetSiblingIndex();
+		this.transform.SetSiblingIndex(index);
+
+		return;
 	}
 	
 
@@ -37,7 +54,8 @@ public class zombi : MonoBehaviour
 
 	void Movement() {
 		
-		this.transform.localScale += this.transform.localScale * speed * Time.deltaTime;
+		this.transform.localScale += Vector3.one * speed * Time.deltaTime;
+		sprite.sortingOrder = (int)(this.transform.localScale.x * 10);
 		
 		if (this.transform.localScale.x > 3f) Attack();
 

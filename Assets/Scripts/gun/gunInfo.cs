@@ -6,7 +6,7 @@ public class GunInfo : MonoBehaviour
 	int current;
 	
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
+	void Awake()
 	{
 		current = gunList.Length - 1;
 	}

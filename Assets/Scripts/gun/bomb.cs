@@ -39,7 +39,7 @@ public class Bomb : MonoBehaviour
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("enemy");
 		
 		foreach (GameObject go in gos) {
-			go.GetComponent<zombi>().Damage(999);
+			go.GetComponent<Zombi>().Damage(999);
 		}
 
 
