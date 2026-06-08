@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-	int nSkillMax = 5;
-	int nSkill;
-	int duration = 15;
-	int cooldown = 10;
+	[SerializeField] int nSkillMax;
+	[SerializeField] int duration;
+	[SerializeField] int cooldown;
+	[SerializeField] float skill4Speed;
+	[SerializeField] float skill5Speed;
 	
 	int skill;
+	int nSkill;
 	bool usingSkill = false;
 
 	playerParameter parameter;
@@ -63,9 +65,11 @@ public class Skill : MonoBehaviour
 				break;
 
 			case 4:
+				StartSkillZombi();
 				break;
 
 			case 5:
+				StartSkillZombi();
 				break;
 
 			default:
@@ -101,5 +105,76 @@ public class Skill : MonoBehaviour
 		ui.SetSkill(nSkill, nSkillMax);
 
 		return;
+	}
+
+
+
+
+	/* -----------------
+		zombi
+	--------------------*/
+
+	// called function (because "invoke" cannot have arguments)
+
+	void StartSkillZombi() {
+
+		SkillZombi(true);
+
+		Invoke("EndSkillZombi", duration);
+
+		return;
+	}
+
+	void EndSkillZombi() {
+
+		SkillZombi(false);
+
+		return;
+	}
+
+
+	// skill
+
+	void SkillZombi(bool isStart) {
+
+		GameObject[] zombis = GameObject.FindGameObjectsWithTag("enemy");
+
+		foreach (GameObject zombi in zombis) {
+
+			// start skill
+			if (isStart) {
+
+				float d = skill4Speed;
+				if (skill == 5) d = skill5Speed;
+
+				zombi.GetComponent<Zombi>().StartSkill(d);
+			}
+
+			// end
+			else {
+				zombi.GetComponent<Zombi>().EndSkill();
+
+			}
+		}
+
+		return;
+	}
+
+
+	// called from zombi
+	public float GetDelta() {
+
+		if (usingSkill == false) return 1;
+		
+		switch (skill) {
+			case 4:
+				return skill4Speed;
+
+			case 5:
+				return skill5Speed;
+
+			default:
+				return 1;
+		}
 	}
 }

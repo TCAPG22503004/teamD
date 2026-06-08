@@ -493,7 +493,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d56b5b778548e49b6e19cf13be94bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombi: {fileID: 4424490694857419019, guid: 56efacc6011fa934bbfd820c899f01b9, type: 3}
+  zombis:
+  - {fileID: 4424490694857419019, guid: 56efacc6011fa934bbfd820c899f01b9, type: 3}
+  - {fileID: 4424490694857419019, guid: 49b6bc5070d3bb74fb1e93c9511931d0, type: 3}
+  - {fileID: 4424490694857419019, guid: 310cc1526ebd5a2439e957136107845b, type: 3}
+  - {fileID: 4424490694857419019, guid: 77f9f4eb5a8c98548bf6385e8a6aa0d3, type: 3}
 --- !u!4 &406278563
 Transform:
   m_ObjectHideFlags: 0
@@ -506,7 +510,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1321200195}
+  - {fileID: 917994077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &499902383
@@ -538,6 +544,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19ad0760cb12bb4da22d7d861f19989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nSkillMax: 5
+  duration: 15
+  cooldown: 10
+  skill4Speed: 0.5
+  skill5Speed: 0
 --- !u!4 &499902385
 Transform:
   m_ObjectHideFlags: 0
@@ -1152,6 +1163,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &917994076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917994077}
+  - component: {fileID: 917994078}
+  m_Layer: 0
+  m_Name: Treasures
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &917994077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917994076}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 406278563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917994078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917994076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed627512a4f2594988c6a0e81f83114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &929248416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +1813,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311169476}
   m_CullTransparentMesh: 1
+--- !u!1 &1321200194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1321200195}
+  m_Layer: 0
+  m_Name: Zombis
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1321200195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321200194}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 406278563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1379684743
 GameObject:
   m_ObjectHideFlags: 0

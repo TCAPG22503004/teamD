@@ -3,7 +3,7 @@ using UnityEngine;
 public class playerParameter : MonoBehaviour
 {
 	// level
-	int level = 3;
+	int level = 1;
 
 	public int LevelUp() {
 		level++;

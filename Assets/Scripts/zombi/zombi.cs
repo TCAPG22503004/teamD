@@ -6,26 +6,33 @@ public class Zombi : MonoBehaviour
 	[SerializeField] int hp;
 	[SerializeField] int attack;
 	[SerializeField] float speed;
+	float initSpeed;
+	SpriteRenderer sprite;
 
 	// treasure
 	[SerializeField] GameObject treasure;
 	float ratioTreasure = 0.1f;
+	Transform treasureObj;
 
-	// other variant
-	SpriteRenderer sprite;
+	// other class
 	spawn spawner;
 	playerParameter parameter;
 	UIChanger ui;
+	Skill skill;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		sprite =  this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+		treasureObj = GameObject.Find("Treasures").transform;
+
 		spawner = GameObject.Find("Spawner").GetComponent<spawn>();
 		parameter = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
+		skill = GameObject.Find("Skill").GetComponent<Skill>();
 
-		SetIndex();
+		SetSpeed();
 	}
 
 	// Update is called once per frame
@@ -36,13 +43,16 @@ public class Zombi : MonoBehaviour
 
 
 	/* ---------------
-		sort
+		init
 	------------------ */
-	void SetIndex() {
+	void SetSpeed() {
 
-		// up from spawner
-		int index = GameObject.Find("Spawner").transform.GetSiblingIndex();
-		this.transform.SetSiblingIndex(index);
+		initSpeed = speed;
+
+		float d = skill.GetDelta();
+
+		// change speed if skill 4 or 5 is triggered
+		StartSkill(d);
 
 		return;
 	}
@@ -106,7 +116,26 @@ public class Zombi : MonoBehaviour
 	void SpawnTreasure() {
 
 		if (Random.value < ratioTreasure) {
-			Instantiate(treasure, this.transform.position, Quaternion.identity);
+			Instantiate(treasure, this.transform.position, Quaternion.identity, treasureObj);
 		}
+	}
+
+
+	/* ------------------------
+		skill(4, 5)
+	--------------------------- */
+
+	public void StartSkill(float d) {
+
+		speed *= d;
+
+		return;
+	}
+
+	public void EndSkill() {
+
+		speed = initSpeed;
+
+		return;
 	}
 }

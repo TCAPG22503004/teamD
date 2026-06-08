@@ -5,7 +5,7 @@ public class treasure : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		SetIndex();
+		SetLayer();
 	}
 
 	// Update is called once per frame
@@ -14,18 +14,16 @@ public class treasure : MonoBehaviour
 		
 	}
 
-	void SetIndex() {
+	void SetLayer() {
 
+		// count treasure 
+		treasure_counter tc = GameObject.Find("Treasures").GetComponent<treasure_counter>();
+		tc.IncrementTreasure();
+		int n = tc.GetCumulative();
+		
+		// set layer
 		SpriteRenderer sprite = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-		// get num of treasure
-		int up = GameObject.Find("Spawner").transform.GetSiblingIndex();
-		int down = GameObject.Find("---- Environment ----").transform.GetSiblingIndex();
-
-		// set position and order in layer
-		this.transform.SetSiblingIndex(down);
-		sprite.sortingOrder = -(down - up);
-
+		sprite.sortingOrder = -n;
 
 		return;
 	}
