@@ -1,0 +1,31 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class buttonFunc : MonoBehaviour
+{
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
+	{
+		
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		
+	}
+
+	public void LoadGameScene() {
+
+		SceneManager.LoadScene("game", LoadSceneMode.Single);
+
+		return;
+	}
+
+	public void LoadTitleScene() {
+
+		SceneManager.LoadScene("title", LoadSceneMode.Single);
+
+		return;
+	}
+}

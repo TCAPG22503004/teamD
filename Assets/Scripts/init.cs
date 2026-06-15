@@ -8,6 +8,9 @@ public class init : MonoBehaviour
 		// set frame rate
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
+
+		// set time scale (gameover: 0)
+		Time.timeScale = 1f;
 	}
 
 	// Update is called once per frame

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+	[SerializeField] int magnification;
+
 	int currentGun, nBullet, nBomb;
 	bool isSkill2 = false;
 
@@ -54,12 +56,19 @@ public class Shoot : MonoBehaviour
 			
 				// enemy
 				if (hit.collider.tag == ("enemy")) {
-					hit.collider.gameObject.GetComponent<Zombi>().Damage(gunInfo.attack);
+					Zombi zombi = hit.collider.transform.parent.gameObject.GetComponent<Zombi>();
+
+					if (hit.collider.name == "Head") {
+						zombi.Damage(gunInfo.attack * magnification);
+					}
+					else {
+						zombi.Damage(gunInfo.attack);
+					}
 				}
 	
 				// treasure
 				else if (hit.collider.tag == ("treasure")) {
-					hit.collider.gameObject.GetComponent<treasure>().Hit();
+					hit.collider.transform.parent.gameObject.GetComponent<treasure>().Hit();
 				}
 			}
 		}

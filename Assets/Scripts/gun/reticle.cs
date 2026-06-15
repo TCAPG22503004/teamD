@@ -68,7 +68,7 @@ public class Reticle : MonoBehaviour
 		foreach (RaycastHit2D h in hits) {
 			try {
 				// get order
-				int order = h.collider.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder;
+				int order = h.collider.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
 
 				// is the most forward?
 				if (order > forward) {
