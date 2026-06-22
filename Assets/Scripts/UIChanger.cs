@@ -1,19 +1,21 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIChanger : MonoBehaviour
 {
 	// this
 	TextMeshProUGUI level, chain, capacity, bomb, talk, skill;
-	GameObject reload, hp;
+	GameObject reload, fav;
+	Image hp;
 
 	// other object
-	playerParameter parameter;
-	int hpMax;
+	int hpMax, favMax;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
+		// get other component
 		level = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
 		chain = GameObject.Find("Chain").GetComponent<TextMeshProUGUI>();
 		capacity = GameObject.Find("Capacity").GetComponent<TextMeshProUGUI>();
@@ -23,11 +25,17 @@ public class UIChanger : MonoBehaviour
 
 		reload = GameObject.Find("Reload");
 		SetReload(false);
+		fav = GameObject.Find("FavoriteUI/Current");
 
-		hp = GameObject.Find("HP/Current");
+		hp = GameObject.Find("HP/Current").GetComponent<Image>();
 
-		parameter = GameObject.Find("Parameter").GetComponent<playerParameter>();
+
+		// set variant
+		playerParameter parameter = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		hpMax = parameter.ChangeHP(0);
+
+		Favorite favorite = GameObject.Find("Heroine").GetComponent<Favorite>();
+		favMax = favorite.GetDelta();
 	}
 
 	// Update is called once per frame
@@ -109,8 +117,14 @@ public class UIChanger : MonoBehaviour
 	}
 
 	public void SetHP(int n) {
-		float ratio = (float)n / (float)hpMax;
-		hp.transform.localScale = new Vector3(1, ratio, 1);
+		float ratio = (float)n / (float)hpMax * 0.75f;
+		hp.fillAmount = ratio;
+		return;
+	}
+
+	public void SetFavorite(float n) {
+		float ratio = n / (float)favMax;
+		fav.transform.localScale = new Vector3(1, ratio, 1);
 		return;
 	}
 }

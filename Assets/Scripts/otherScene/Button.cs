@@ -28,4 +28,17 @@ public class buttonFunc : MonoBehaviour
 
 		return;
 	}
+
+	public void QuitGame() {
+
+		# if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+
+		# else
+		Application.Quit();
+
+		# endif
+
+		return;
+	}
 }

@@ -16,12 +16,10 @@ public class init : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// exit game
+		// exit editor
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			# if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
-			# else
-			Application.Quit();
 			# endif
 		}
 	}

@@ -3,6 +3,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
 	[SerializeField] int magnification;
+	[SerializeField] float dFav;
 
 	int currentGun, nBullet, nBomb;
 	bool isSkill2 = false;
@@ -13,6 +14,7 @@ public class Shoot : MonoBehaviour
 	gunParameter gunInfo;
 	playerParameter player;
 	UIChanger ui;
+	Favorite favorite;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -22,6 +24,7 @@ public class Shoot : MonoBehaviour
 		gunInfoClass = GameObject.Find("GunList").GetComponent<GunInfo>();
 		player = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
+		favorite = GameObject.Find("Heroine").GetComponent<Favorite>();
 
 		gunInfo = gunInfoClass.ChangeGun(999);
 		nBullet = gunInfo.capacity;
@@ -85,6 +88,21 @@ public class Shoot : MonoBehaviour
 		}
 
 		ui.SetChain(chain);
+
+
+		// update favorite
+		float d;
+		if (chain < 3) {
+			d = 0;
+		}
+		else if (chain >= 30) {
+			d = 1.2f;
+		}
+		else {
+			d = (1.2f - 1f) / (30f - 3f) * (chain - 3f) + 1f;
+		}
+
+		favorite.ChangeFav(dFav * d);
 
 
 		// update bullet
