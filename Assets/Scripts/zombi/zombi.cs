@@ -19,7 +19,8 @@ public class Zombi : MonoBehaviour
 	playerParameter parameter;
 	UIChanger ui;
 	Skill skill;
-	Result result;
+	Init init;
+	Variant variant;
 
 	// (damage : change?)
 	Transform child1, child2;
@@ -37,7 +38,8 @@ public class Zombi : MonoBehaviour
 		parameter = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
 		skill = GameObject.Find("Skill").GetComponent<Skill>();
-		result = GameObject.Find("Result").GetComponent<Result>();
+		init = GameObject.Find("Init").GetComponent<Init>();
+		variant = GameObject.Find("Variant").GetComponent<Variant>();
 
 		child1 = this.transform.Find("Head");
 		child2 = this.transform.Find("Square");
@@ -76,8 +78,8 @@ public class Zombi : MonoBehaviour
 	void Movement() {
 		
 		this.transform.localScale += Vector3.one * speed * Time.deltaTime;
-		sprite1.sortingOrder = (int)(this.transform.localScale.x * 100) + 1;
-		sprite2.sortingOrder = (int)(this.transform.localScale.x * 100);
+		sprite1.sortingOrder = (int)(this.transform.localScale.x * 10) + 1;
+		sprite2.sortingOrder = (int)(this.transform.localScale.x * 10);
 		
 		if (this.transform.localScale.x > 3f) Attack();
 
@@ -94,7 +96,8 @@ public class Zombi : MonoBehaviour
 		int hp = parameter.ChangeHP(-attack);
 		if (hp <= 0) {
 			hp = parameter.ChangeHP(-hp);	// set hp 0 (to UI)
-			result.GameOver();
+			variant.IsClear = false;
+			init.Result();
 		}
 		ui.SetHP(hp);
 		

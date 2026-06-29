@@ -5,7 +5,7 @@ using TMPro;
 public class UIChanger : MonoBehaviour
 {
 	// this
-	TextMeshProUGUI level, chain, capacity, bomb, talk, skill;
+	TextMeshProUGUI level, chain, capacity, bomb, talk, skill, message;
 	GameObject reload, fav;
 	Image hp;
 
@@ -22,6 +22,7 @@ public class UIChanger : MonoBehaviour
 		bomb = GameObject.Find("Bomb").GetComponent<TextMeshProUGUI>();
 		talk = GameObject.Find("Talk").GetComponent<TextMeshProUGUI>();
 		skill = GameObject.Find("Space").GetComponent<TextMeshProUGUI>();
+		message = GameObject.Find("Message").GetComponent<TextMeshProUGUI>();
 
 		reload = GameObject.Find("Reload");
 		SetReload(false);
@@ -108,6 +109,11 @@ public class UIChanger : MonoBehaviour
 				break;
 		}
 
+		return;
+	}
+
+	public void SetMessage(string s) {
+		message.text = s;
 		return;
 	}
 

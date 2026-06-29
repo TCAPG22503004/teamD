@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-	[SerializeField] int magnification;
+	[SerializeField] int headRatio;
 	[SerializeField] float dFav;
 
 	int currentGun, nBullet, nBomb;
@@ -56,13 +56,17 @@ public class Shoot : MonoBehaviour
 			RaycastHit2D hit = reticle.GetTargetInfo();
 
 			if (hit.collider != null) {
+
+				// hit data
+				GameObject parent = hit.collider.transform.parent.gameObject;
+				string tag = hit.collider.tag;
 			
 				// enemy
-				if (hit.collider.tag == ("enemy")) {
-					Zombi zombi = hit.collider.transform.parent.gameObject.GetComponent<Zombi>();
+				if (tag == "enemy") {
+					Zombi zombi = parent.GetComponent<Zombi>();
 
 					if (hit.collider.name == "Head") {
-						zombi.Damage(gunInfo.attack * magnification);
+						zombi.Damage(gunInfo.attack * headRatio);
 					}
 					else {
 						zombi.Damage(gunInfo.attack);
@@ -70,8 +74,15 @@ public class Shoot : MonoBehaviour
 				}
 	
 				// treasure
-				else if (hit.collider.tag == ("treasure")) {
-					hit.collider.transform.parent.gameObject.GetComponent<treasure>().Hit();
+				else if (tag == "treasure") {
+					parent.GetComponent<treasure>().Hit();
+				}
+
+
+				// heroine
+				else if (tag == "heroine") {
+					parent.GetComponent<Favorite>().ChangeFav(-dFav);
+					isChain = false;
 				}
 			}
 		}

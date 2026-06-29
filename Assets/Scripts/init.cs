@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class init : MonoBehaviour
+public class Init : MonoBehaviour
 {
+	[SerializeField] int clearTime = 30;
+
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
@@ -9,8 +12,8 @@ public class init : MonoBehaviour
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
 
-		// set time scale (gameover: 0)
-		Time.timeScale = 1f;
+		// set timer
+		Invoke("Result", clearTime);
 	}
 
 	// Update is called once per frame
@@ -22,5 +25,16 @@ public class init : MonoBehaviour
 			UnityEditor.EditorApplication.isPlaying = false;
 			# endif
 		}
+	}
+
+	public void Result() {
+
+		SceneManager.LoadScene("result", LoadSceneMode.Single);
+
+		return;
+	}
+
+	public int GetTime() {
+		return clearTime;
 	}
 }

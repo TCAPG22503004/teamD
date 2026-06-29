@@ -17,7 +17,7 @@ public class UIChanger_Progress : MonoBehaviour
 	{
 		// set dt
 		len = images.Length;
-		int totalTime = GameObject.Find("Result").GetComponent<Result>().GetTime();
+		int totalTime = GameObject.Find("Init").GetComponent<Init>().GetTime();
 		dt = (float)totalTime / (float) len;
 
 		// start function

@@ -53,10 +53,21 @@ public class Favorite : MonoBehaviour
 
 	void LevelDown() {
 
+		// get level
 		int level = parameter.LevelDown();
-		ui.SetLevel(level);
 
-		fav = delta - 1;
+		// is level -1?
+		if (level < 0) {
+			level = parameter.LevelUp();
+			fav = 0;
+		}
+
+		else {
+			fav = delta - 1;
+		}
+
+		// ui
+		ui.SetLevel(level);
 
 		return;
 	}
