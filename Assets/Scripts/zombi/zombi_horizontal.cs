@@ -20,7 +20,7 @@ public class zombi_horizontal : MonoBehaviour
 		this.transform.Translate(v * Time.deltaTime);
 	}
 
-	void SwitchDirection() {
+	public void SwitchDirection() {
 
 		v.x *= -1;
 

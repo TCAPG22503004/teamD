@@ -15,6 +15,7 @@ public class Shoot : MonoBehaviour
 	playerParameter player;
 	UIChanger ui;
 	Favorite favorite;
+	Variant variant;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -25,6 +26,7 @@ public class Shoot : MonoBehaviour
 		player = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
 		favorite = GameObject.Find("Heroine").GetComponent<Favorite>();
+		variant = GameObject.Find("Variant").GetComponent<Variant>();
 
 		gunInfo = gunInfoClass.ChangeGun(999);
 		nBullet = gunInfo.capacity;
@@ -48,6 +50,8 @@ public class Shoot : MonoBehaviour
 	--------------------- */
 	public void ShootBullet() {
 
+		variant.Total = 1;
+
 		bool isChain = reticle.GetIsTarget();
 
 		// hit enemy or heroine?
@@ -63,6 +67,8 @@ public class Shoot : MonoBehaviour
 			
 				// enemy
 				if (tag == "enemy") {
+					variant.Hit = 1;
+
 					Zombi zombi = parent.GetComponent<Zombi>();
 
 					if (hit.collider.name == "Head") {

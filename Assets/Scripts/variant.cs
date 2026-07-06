@@ -12,6 +12,7 @@ public class Variant : MonoBehaviour
 
 		// not exist yet
 		DontDestroyOnLoad(this.gameObject);
+
 	}
 
 	// Update is called once per frame
@@ -49,6 +50,18 @@ public class Variant : MonoBehaviour
 	int miss;
 	public int Miss {
 		get { return miss; }
-		set { Miss++; }
+		set { miss++; }
+	}
+
+	// reset
+	public void Reset() {
+
+		isClear = true;
+		hit = 0;
+		total = 0;
+		bomb = 0;
+		miss = 0;
+
+		return;
 	}
 }

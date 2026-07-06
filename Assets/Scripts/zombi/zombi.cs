@@ -6,8 +6,10 @@ public class Zombi : MonoBehaviour
 	[SerializeField] int hp;
 	[SerializeField] int attack;
 	[SerializeField] float speed;
+	[SerializeField] float flipInterval;
 	float initSpeed;
-	SpriteRenderer sprite1, sprite2;
+	SpriteRenderer sprite;
+	int rotSign = 1;
 
 	// treasure
 	[SerializeField] GameObject treasure;
@@ -21,6 +23,7 @@ public class Zombi : MonoBehaviour
 	Skill skill;
 	Init init;
 	Variant variant;
+	zombi_horizontal horizon;
 
 	// (damage : change?)
 	Transform child1, child2;
@@ -29,8 +32,7 @@ public class Zombi : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		sprite1 =  this.transform.Find("Head").GetComponent<SpriteRenderer>();
-		sprite2 =  this.transform.Find("Square").GetComponent<SpriteRenderer>();
+		sprite =  this.transform.Find("Square").GetComponent<SpriteRenderer>();
 
 		treasureObj = GameObject.Find("Treasures").transform;
 
@@ -40,12 +42,15 @@ public class Zombi : MonoBehaviour
 		skill = GameObject.Find("Skill").GetComponent<Skill>();
 		init = GameObject.Find("Init").GetComponent<Init>();
 		variant = GameObject.Find("Variant").GetComponent<Variant>();
+		horizon = this.GetComponent<zombi_horizontal>();
 
 		child1 = this.transform.Find("Head");
 		child2 = this.transform.Find("Square");
 		color = child1.GetComponent<Renderer>().material.color;
 
 		SetSpeed();
+
+		InvokeRepeating("Flip", flipInterval, flipInterval);
 	}
 
 	// Update is called once per frame
@@ -78,12 +83,26 @@ public class Zombi : MonoBehaviour
 	void Movement() {
 		
 		this.transform.localScale += Vector3.one * speed * Time.deltaTime;
-		sprite1.sortingOrder = (int)(this.transform.localScale.x * 10) + 1;
-		sprite2.sortingOrder = (int)(this.transform.localScale.x * 10);
+		sprite.sortingOrder = (int)(this.transform.localScale.x * 10);
 		
 		if (this.transform.localScale.x > 3f) Attack();
 
 		return;
+	}
+
+
+	void Flip() {
+
+		Vector3 r = new Vector3(0f, (float)180 * rotSign, 0f);
+		rotSign *= -1;
+
+		this.transform.Rotate(r);
+
+		// horizontal
+		if (horizon) horizon.SwitchDirection();
+
+		return;
+
 	}
 
 

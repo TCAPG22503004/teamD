@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour
 	Gun gun;
 	playerParameter player;
 	UIChanger ui;
+	Variant variant;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -14,6 +15,7 @@ public class Bomb : MonoBehaviour
 		gun = this.GetComponent<Gun>();
 		player = GameObject.Find("Parameter").GetComponent<playerParameter>();
 		ui = GameObject.Find("UIChanger").GetComponent<UIChanger>();
+		variant = GameObject.Find("Variant").GetComponent<Variant>();
 	}
 
 	// Update is called once per frame
@@ -34,8 +36,9 @@ public class Bomb : MonoBehaviour
 
 	public void UseBomb() {
 
-		// kill all enemys
+		variant.Bomb = 1;
 
+		// kill all enemys
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("enemy");
 		
 		foreach (GameObject go in gos) {

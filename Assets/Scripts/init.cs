@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Init : MonoBehaviour
 {
-	[SerializeField] int clearTime = 30;
+	[SerializeField] int clearTime;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -12,7 +12,8 @@ public class Init : MonoBehaviour
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
 
-		// set timer
+		// my function
+		Invoke("ResetData", 0.03f);
 		Invoke("Result", clearTime);
 	}
 
@@ -25,6 +26,10 @@ public class Init : MonoBehaviour
 			UnityEditor.EditorApplication.isPlaying = false;
 			# endif
 		}
+	}
+
+	void ResetData() {
+		GameObject.Find("Variant").GetComponent<Variant>().Reset();
 	}
 
 	public void Result() {
