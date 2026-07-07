@@ -17,14 +17,14 @@ public class buttonFunc : MonoBehaviour
 
 	public void LoadGameScene() {
 
-		SceneManager.LoadScene("game", LoadSceneMode.Single);
+		SceneManager.LoadScene("game");
 
 		return;
 	}
 
 	public void LoadTitleScene() {
 
-		SceneManager.LoadScene("title", LoadSceneMode.Single);
+		SceneManager.LoadScene("title");
 
 		return;
 	}

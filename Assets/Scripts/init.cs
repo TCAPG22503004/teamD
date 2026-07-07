@@ -13,7 +13,7 @@ public class Init : MonoBehaviour
 		Application.targetFrameRate = 60;
 
 		// my function
-		Invoke("ResetData", 0.03f);
+		GameObject.Find("Variant").GetComponent<Variant>().Reset();
 		Invoke("Result", clearTime);
 	}
 
@@ -28,13 +28,10 @@ public class Init : MonoBehaviour
 		}
 	}
 
-	void ResetData() {
-		GameObject.Find("Variant").GetComponent<Variant>().Reset();
-	}
 
 	public void Result() {
 
-		SceneManager.LoadScene("result", LoadSceneMode.Single);
+		SceneManager.LoadScene("result");
 
 		return;
 	}

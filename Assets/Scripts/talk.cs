@@ -62,12 +62,13 @@ public class Talk : MonoBehaviour
 		// split
 		string[] text = file.Split('\n');
 		length = text.Length;
-		message = new string[length, 2];
+		message = new string[length, 3];
 
 		for (int i = 0; i < length; i++) {
 			string[] row = text[i].Split(',');
-			message[i, 0] = row[0];
-			message[i, 1] = row[1];
+			for (int j = 0; j < 3; j++) {
+				message[i, j] = row[j].Replace('\t', '\n');
+			}
 		}
 
 		return;
@@ -81,12 +82,13 @@ public class Talk : MonoBehaviour
 		num++;
 		if (num >= length) num = 0;
 
-		ui.SetMessage(message[num, 1]);
+		ui.SetName(message[num, 0]);
+		ui.SetMessage(message[num, 2]);
 
 
 		// movement
 		heroine.Move();
-		int n = int.Parse(message[num, 0]);
+		int n = int.Parse(message[num, 1]);
 		heroine.ChangeImage(n);
 
 		
@@ -100,7 +102,8 @@ public class Talk : MonoBehaviour
 	}
 
 	void Init() {
-		ui.SetMessage(message[num, 1]);
+		ui.SetName(message[num, 0]);
+		ui.SetMessage(message[num, 2]);
 
 		c = keyList[Random.Range(0, keyList.Length)];
 		ui.SetTalk(c);
