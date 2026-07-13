@@ -15,9 +15,9 @@ public class buttonFunc : MonoBehaviour
 		
 	}
 
-	public void LoadGameScene() {
+	public void LoadTalkScene() {
 
-		SceneManager.LoadScene("game");
+		SceneManager.LoadScene("talk");
 
 		return;
 	}

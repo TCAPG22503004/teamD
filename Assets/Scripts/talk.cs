@@ -8,7 +8,6 @@ public class Talk : MonoBehaviour
 	// message
 	[SerializeField] TextAsset csv;
 	string[,] message;
-	int[] pause;
 	int num = 0;
 	int length;
 

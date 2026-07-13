@@ -26,7 +26,7 @@ public class Zombi : MonoBehaviour
 	zombi_horizontal horizon;
 
 	// (damage : change?)
-	Transform child1, child2;
+	Transform child;
 	Color color;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,9 +44,8 @@ public class Zombi : MonoBehaviour
 		variant = GameObject.Find("Variant").GetComponent<Variant>();
 		horizon = this.GetComponent<zombi_horizontal>();
 
-		child1 = this.transform.Find("Head");
-		child2 = this.transform.Find("Square");
-		color = child1.GetComponent<Renderer>().material.color;
+		child = this.transform.Find("Square");
+		color = child.GetComponent<Renderer>().material.color;
 
 		SetSpeed();
 
@@ -138,8 +137,7 @@ public class Zombi : MonoBehaviour
 		if (hp <= 0) Death();
 
 		// (change?)
-		child1.GetComponent<Renderer>().material.color = Color.red;
-		child2.GetComponent<Renderer>().material.color = Color.red;
+		child.GetComponent<Renderer>().material.color = Color.red;
 		Invoke("ResetColor", 0.1f);
 
 		return;
@@ -147,8 +145,7 @@ public class Zombi : MonoBehaviour
 
 	void ResetColor() {
 
-		child1.GetComponent<Renderer>().material.color = color;
-		child2.GetComponent<Renderer>().material.color = color;
+		child.GetComponent<Renderer>().material.color = color;
 
 		return;
 	}
