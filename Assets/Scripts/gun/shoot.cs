@@ -41,7 +41,7 @@ public class Shoot : MonoBehaviour
 
 	// set default capacity (after load component)
 	void Init() {
-		ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+		ui.SetCapacity(nBullet, gunInfo.capacity, gunInfo.gunImage);
 	}
 
 
@@ -128,7 +128,7 @@ public class Shoot : MonoBehaviour
 
 			nBullet--;
 
-			ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+			ui.SetCapacity(nBullet, gunInfo.capacity, gunInfo.gunImage);
 		}
 
 
@@ -159,7 +159,7 @@ public class Shoot : MonoBehaviour
 		ui.SetReload(false);
 
 		nBullet = gunInfo.capacity;
-		ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+		ui.SetCapacity(nBullet, gunInfo.capacity, gunInfo.gunImage);
 
 		gun.SetCanShoot(true);
 
@@ -196,10 +196,10 @@ public class Shoot : MonoBehaviour
 
 		// set ui
 		if (isSkill2) {
-			ui.SetCapacity(gunInfo.name, -1, -1);
+			ui.SetCapacity(-1, -1, gunInfo.gunImage);
 		}
 		else {
-			ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+			ui.SetCapacity(nBullet, gunInfo.capacity, gunInfo.gunImage);
 		}
 		return;
 	}
@@ -214,7 +214,7 @@ public class Shoot : MonoBehaviour
 
 		isSkill2 = true;
 
-		ui.SetCapacity(gunInfo.name, -1, -1);
+		ui.SetCapacity(-1, -1, gunInfo.gunImage);
 
 		Invoke("EndSkill2", t);
 
@@ -227,7 +227,7 @@ public class Shoot : MonoBehaviour
 
 		nBullet = gunInfo.capacity;
 
-		ui.SetCapacity(gunInfo.name, nBullet, gunInfo.capacity);
+		ui.SetCapacity(nBullet, gunInfo.capacity, gunInfo.gunImage);
 
 		return;
 	}

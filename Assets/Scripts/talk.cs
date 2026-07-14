@@ -61,6 +61,7 @@ public class Talk : MonoBehaviour
 		// split
 		string[] text = file.Split('\n');
 		length = text.Length;
+		if (text[length-1] == "") length--;
 		message = new string[length, 3];
 
 		for (int i = 0; i < length; i++) {

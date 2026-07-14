@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - heroine
   - variant
+  - button
   layers:
   - Default
   - TransparentFX

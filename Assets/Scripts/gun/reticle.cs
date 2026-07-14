@@ -27,7 +27,13 @@ public class Reticle : MonoBehaviour
 	void Update()
 	{
 		// cannot shoot
-		if (gun.GetCanShoot() == false || shoot.GetNBullet() == 0) {
+		bool isGun = (gun != null);
+		if (isGun) isGun = (gun.GetCanShoot() == false);
+
+		bool isShoot = (shoot != null);
+		if (isShoot) isShoot = (shoot.GetNBullet() == 0);
+
+		if (isGun || isShoot) {
 
 			// check already changed
 			if (isGray == false) {
@@ -40,7 +46,6 @@ public class Reticle : MonoBehaviour
 			// set isTarget
 			SetIsTarget();
 			
-
 			// change after cooldown
 			if (isGray) {
 				isGray = false;

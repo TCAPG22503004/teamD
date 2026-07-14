@@ -41,6 +41,7 @@ public class GunInfo : MonoBehaviour
 	public int capacity;
 	public float cooltime;
 	public float reloadtime;
+	public Texture2D gunImage;
 
 	// private
 	int nBullet;

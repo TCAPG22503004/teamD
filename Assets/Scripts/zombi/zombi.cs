@@ -6,9 +6,9 @@ public class Zombi : MonoBehaviour
 	[SerializeField] int hp;
 	[SerializeField] int attack;
 	[SerializeField] float speed;
+	[SerializeField] float maxScale;
 	[SerializeField] float flipInterval;
 	float initSpeed;
-	SpriteRenderer sprite;
 	int rotSign = 1;
 
 	// treasure
@@ -26,14 +26,13 @@ public class Zombi : MonoBehaviour
 	zombi_horizontal horizon;
 
 	// (damage : change?)
-	Transform child;
+	Transform head, body;
+	SpriteRenderer spriteHead, spriteBody;
 	Color color;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
-		sprite =  this.transform.Find("Square").GetComponent<SpriteRenderer>();
-
 		treasureObj = GameObject.Find("Treasures").transform;
 
 		spawner = GameObject.Find("Spawner").GetComponent<spawn>();
@@ -44,8 +43,11 @@ public class Zombi : MonoBehaviour
 		variant = GameObject.Find("Variant").GetComponent<Variant>();
 		horizon = this.GetComponent<zombi_horizontal>();
 
-		child = this.transform.Find("Square");
-		color = child.GetComponent<Renderer>().material.color;
+		head = this.transform.Find("Head");
+		body = this.transform.Find("Body");
+		spriteHead = head.GetComponent<SpriteRenderer>();
+		spriteBody = body.GetComponent<SpriteRenderer>();
+		color = body.GetComponent<Renderer>().material.color;
 
 		SetSpeed();
 
@@ -82,9 +84,12 @@ public class Zombi : MonoBehaviour
 	void Movement() {
 		
 		this.transform.localScale += Vector3.one * speed * Time.deltaTime;
-		sprite.sortingOrder = (int)(this.transform.localScale.x * 10);
-		
-		if (this.transform.localScale.x > 3f) Attack();
+		int n = (int)(this.transform.localScale.x * 10);
+
+		spriteHead.sortingOrder = n;
+		spriteBody.sortingOrder = n;
+
+		if (this.transform.localScale.x > maxScale) Attack();
 
 		return;
 	}
@@ -137,7 +142,7 @@ public class Zombi : MonoBehaviour
 		if (hp <= 0) Death();
 
 		// (change?)
-		child.GetComponent<Renderer>().material.color = Color.red;
+		body.GetComponent<Renderer>().material.color = Color.red;
 		Invoke("ResetColor", 0.1f);
 
 		return;
@@ -145,7 +150,7 @@ public class Zombi : MonoBehaviour
 
 	void ResetColor() {
 
-		child.GetComponent<Renderer>().material.color = color;
+		body.GetComponent<Renderer>().material.color = color;
 
 		return;
 	}

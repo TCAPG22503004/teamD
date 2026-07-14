@@ -76,12 +76,7 @@ public class TalkScene : MonoBehaviour
 
 		// heroine
 		int n = int.Parse(message[num, 1]);
-		if (n >= 0) {
-			heroine.sprite = sprites[n];
-		}
-		else {
-			heroine.sprite = null;
-		}
+		if (n >= 0 && n < sprites.Length) heroine.sprite = sprites[n];
 
 		// ui
 		talker.text = message[num, 0];

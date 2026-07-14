@@ -5,8 +5,10 @@ using TMPro;
 public class UIChanger : MonoBehaviour
 {
 	// this
-	TextMeshProUGUI level, chain, capacity, bomb, talk, skill, message, talker;
-	GameObject reload, fav;
+	TextMeshProUGUI level, chain, capacityNow, capacityMax, talk, skill, message, talker, hpPercent;
+	GameObject reload;
+	Transform fav, bomb;
+	RawImage gun;
 	Image hp;
 
 	// other object
@@ -18,17 +20,21 @@ public class UIChanger : MonoBehaviour
 		// get other component
 		level = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
 		chain = GameObject.Find("Chain").GetComponent<TextMeshProUGUI>();
-		capacity = GameObject.Find("Capacity").GetComponent<TextMeshProUGUI>();
-		bomb = GameObject.Find("Bomb").GetComponent<TextMeshProUGUI>();
+		capacityNow = GameObject.Find("Capacity/Current").GetComponent<TextMeshProUGUI>();
+		capacityMax = GameObject.Find("Capacity/Max").GetComponent<TextMeshProUGUI>();
 		talk = GameObject.Find("Talk").GetComponent<TextMeshProUGUI>();
 		skill = GameObject.Find("Space").GetComponent<TextMeshProUGUI>();
 		message = GameObject.Find("Message").GetComponent<TextMeshProUGUI>();
 		talker = GameObject.Find("Name").GetComponent<TextMeshProUGUI>();
+		hpPercent = GameObject.Find("HP/Percent").GetComponent<TextMeshProUGUI>();
 
 		reload = GameObject.Find("Reload");
 		SetReload(false);
-		fav = GameObject.Find("FavoriteUI/Current");
 
+		fav = GameObject.Find("FavoriteUI/Current").transform;
+		bomb = GameObject.Find("Bomb").transform;
+
+		gun = GameObject.Find("Capacity/Gun").GetComponent<RawImage>();
 		hp = GameObject.Find("HP/Current").GetComponent<Image>();
 
 
@@ -57,22 +63,23 @@ public class UIChanger : MonoBehaviour
 		return;
 	}
 
-	public void SetCapacity(string name, int i, int j) {
+	public void SetCapacity(int i, int j, Texture2D img) {
 
+		// current
 		// use skill 2
 		if (i < 0) {
-			capacity.text = name + " " + "infinity";
+			capacityNow.text = "infinity";
 		}
 
 		else {
-			capacity.text = name + " " + i.ToString() + " / " + j.ToString();
+			capacityNow.text = i.ToString();
 		}
 
-		return;
-	}
+		// other
+		capacityMax.text = j.ToString();
 
-	public void SetBomb(int i) {
-		bomb.text = "Bomb: " + i.ToString();
+		gun.texture = img;
+
 		return;
 	}
 
@@ -129,14 +136,29 @@ public class UIChanger : MonoBehaviour
 	}
 
 	public void SetHP(int n) {
+
 		float ratio = (float)n / (float)hpMax * 0.75f;
 		hp.fillAmount = ratio;
+
+		hpPercent.text = (ratio * 100).ToString("f0") + "%";
+
 		return;
 	}
 
 	public void SetFavorite(float n) {
 		float ratio = n / (float)favMax;
-		fav.transform.localScale = new Vector3(1, ratio, 1);
+		fav.localScale = new Vector3(1, ratio, 1);
+		return;
+	}
+
+	public void SetBomb(int n, bool isPlus) {
+
+		int m = isPlus ? (n-1) : n;
+		Color c = isPlus ? Color.green : Color.gray;
+
+		Image img = bomb.GetChild(m).gameObject.GetComponent<Image>();
+		img.color = c;
+
 		return;
 	}
 }

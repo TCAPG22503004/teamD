@@ -27,9 +27,11 @@ public class Bomb : MonoBehaviour
 
 	public void IncrementNBomb() {
 
+		if (nBomb >= 5) return;
+
 		nBomb++;
 
-		ui.SetBomb(nBomb);
+		ui.SetBomb(nBomb, true);
 
 		return;
 	}
@@ -57,7 +59,7 @@ public class Bomb : MonoBehaviour
 		ui.SetChain(chain);
 
 		nBomb--;
-		ui.SetBomb(nBomb);
+		ui.SetBomb(nBomb, false);
 
 		return;
 	}

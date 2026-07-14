@@ -30,12 +30,7 @@ public class heroineMovement : MonoBehaviour
 
 	public void ChangeImage(int n) {
 
-		if (n >= 0 && n < sprite.Length) {
-			render.sprite = sprite[n];
-		}
-		else {
-			render.sprite = null;
-		}
+		if (n >= 0 && n < sprite.Length) render.sprite = sprite[n];
 
 		return;
 	}
