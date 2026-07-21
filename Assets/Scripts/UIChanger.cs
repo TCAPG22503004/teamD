@@ -137,8 +137,8 @@ public class UIChanger : MonoBehaviour
 
 	public void SetHP(int n) {
 
-		float ratio = (float)n / (float)hpMax * 0.75f;
-		hp.fillAmount = ratio;
+		float ratio = (float)n / (float)hpMax;
+		hp.fillAmount = ratio * 0.75f;
 
 		hpPercent.text = (ratio * 100).ToString("f0") + "%";
 

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class heroineMovement : MonoBehaviour
 {
-	float xrange = 8f;
-
 	[SerializeField] Sprite[] sprite;
 	SpriteRenderer render;
 
@@ -19,18 +17,11 @@ public class heroineMovement : MonoBehaviour
 		
 	}
 
-	public void Move() {
-
-		float x = Random.Range(-xrange, xrange);
-
-		this.transform.position = new Vector3(x, 0, 0);
-
-		return;
-	}
-
-	public void ChangeImage(int n) {
+	public void ChangeImage(int n, float m, float l) {
 
 		if (n >= 0 && n < sprite.Length) render.sprite = sprite[n];
+
+		this.transform.position = new Vector3(m, l, 0);
 
 		return;
 	}
